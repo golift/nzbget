@@ -9,6 +9,43 @@ Go Library to interact with NZBGet. Almost full-featured. See exposed [methods](
 
 If you'd like new features, please open a GitHub issue or pull request.
 
+## Example
+
+Simple example to print some logs.
+
+```golang
+package main
+
+import (
+	"fmt"
+
+	"golift.io/nzbget"
+)
+
+func main() {
+	nzb := nzbget.New(&nzbget.Config{
+		URL:  "http://nzbget.server.io:6789/",
+		User: "userName",
+		Pass: "passWord",
+	})
+
+	events, err := nzb.Log(0, 100)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, event := range events {
+		fmt.Println(event.ID, event.Kind, event.Time, event.Text)
+	}
+}
+// Output examples:
+// 47 INFO 2022-06-27 01:42:19 -0700 PDT Renaming 0b710bf619488ca0a1b5f83f53fde577.15 to eQ7Aq0DBEhHGCgSXy3PZ.part16.rar
+// 103 INFO 2022-06-27 01:42:23 -0700 PDT Unrar: Extracting from eQ7Aq0DBEhHGCgSXy3PZ.part28.rar
+// 104 INFO 2022-06-27 01:42:24 -0700 PDT Unrar: All OK
+// 105 INFO 2022-06-27 01:42:24 -0700 PDT Deleting archive files
+// 106 INFO 2022-06-27 01:42:24 -0700 PDT Deleting file eQ7Aq0DBEhHGCgSXy3PZ.part21.rar
+```
+
 ## Methods
 
 Official NZBGet API reference can be [found here](https://nzbget.net/api/).

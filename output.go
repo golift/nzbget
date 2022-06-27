@@ -218,11 +218,13 @@ type NewsServers struct {
 
 // Time defines a timestamp encoded as epoch seconds in JSON.
 // NZBGet returns all times as seconds since epoch, so we use a custom type to always return a proper go Time.
-type Time time.Time
+type Time struct {
+	time.Time
+}
 
 // MarshalJSON is used to convert the timestamp to JSON.
 func (t Time) MarshalJSON() ([]byte, error) {
-	return []byte(strconv.FormatInt(time.Time(t).Unix(), 10)), nil //nolint:gomnd
+	return []byte(strconv.FormatInt(t.Time.Unix(), 10)), nil //nolint:gomnd
 }
 
 // UnmarshalJSON is used to convert the timestamp from JSON.
@@ -232,7 +234,7 @@ func (t *Time) UnmarshalJSON(s []byte) error {
 		return fmt.Errorf("parsing number: %w", err)
 	}
 
-	*(*time.Time)(t) = time.Unix(q, 0)
+	t.Time = time.Unix(q, 0)
 
 	return nil
 }
