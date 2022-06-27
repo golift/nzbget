@@ -1,0 +1,15 @@
+linters:
+  enable-all: true
+  disable:
+    - maligned
+    - scopelint
+    - interfacer
+    - golint
+    - tagliatelle
+    - exhaustivestruct
+    - exhaustruct
+    - dupl
+    - nlreturn
+
+run:
+  timeout: 35m
