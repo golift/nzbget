@@ -1,7 +1,11 @@
 # nzbget
 
-Go Library used to interact with NZBGet. This library is not full-featured,
-and probably only provides read-only methods to view the download list.
+[![GoDoc](https://godoc.org/golift.io/nzbget/svc?status.svg)](https://pkg.go.dev/golift.io/nzbget)
+[![Go Report Card](https://goreportcard.com/badge/golift.io/nzbget)](https://goreportcard.com/report/golift.io/nzbget)
+[![MIT License](https://img.shields.io/:license-mit-blue.svg)](https://github.com/golift/nzbget/blob/main/LICENSE)
+[![discord](https://badgen.net/badge/icon/Discord?color=0011ff&label&icon=https://simpleicons.now.sh/discord/eee "GoLift Discord")](https://golift.io/discord)
+
+Go Library used to interact with NZBGet. Almost full-featured. See below.
 
 If you'd like new features, please open a GitHub issue or pull request.
 
