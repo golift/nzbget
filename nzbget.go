@@ -56,7 +56,7 @@ func New(config *Config) *NZBGet {
 		config.Timeout.Duration = DefaultTimeout
 	}
 
-	// This app allows http auth, in addition to qbit web username/password.
+	// Set username and password if one's configured.
 	auth := config.User + ":" + config.Pass
 	if auth != ":" {
 		auth = "Basic " + base64.StdEncoding.EncodeToString([]byte(auth))

@@ -2,32 +2,37 @@ package nzbget
 
 import "time"
 
-// Version returns the NZBGet Version: https://nzbget.net/api/version.
+// Version returns the NZBGet Version.
+// https://nzbget.net/api/version
 func (n *NZBGet) Version() (string, error) {
 	var output string
 	return output, n.GetInto("version", &output)
 }
 
-// ListFiles returns the NZBGet Files for a download: https://nzbget.net/api/listfiles.
+// ListFiles returns the NZBGet Files for a download.
+// https://nzbget.net/api/listfiles
 // nzbID is the NZBID of the group to be returned. Use 0 for all file groups.
 func (n *NZBGet) ListFiles(nzbID int64) (*File, error) {
 	var output File
 	return &output, n.GetInto("listfiles", &output, 0, 0, nzbID)
 }
 
-// Status returns the NZBGet Status: https://nzbget.net/api/status.
+// Status returns the NZBGet Status.
+// https://nzbget.net/api/status
 func (n *NZBGet) Status() (*Status, error) {
 	var output Status
 	return &output, n.GetInto("status", &output)
 }
 
-// History returns the NZBGet Download History: https://nzbget.net/api/history.
+// History returns the NZBGet Download History.
+// https://nzbget.net/api/history
 func (n *NZBGet) History(hidden bool) ([]*History, error) {
 	var output []*History
 	return output, n.GetInto("history", &output, hidden)
 }
 
-// ListGroups returns the NZBGet Download list: https://nzbget.net/api/listgroups.
+// ListGroups returns the NZBGet Download list.
+// https://nzbget.net/api/listgroups
 func (n *NZBGet) ListGroups(limit int64) ([]*Group, error) {
 	var output []*Group
 	return output, n.GetInto("listgroups", &output, limit)
@@ -35,6 +40,7 @@ func (n *NZBGet) ListGroups(limit int64) ([]*Group, error) {
 
 // Log returns the NZBGet Logs.
 // NOTE: only one parameter - either startID or limit - can be specified. The other parameter must be 0.
+// https://nzbget.net/api/log
 func (n *NZBGet) Log(startID, limit int64) ([]*LogEntry, error) {
 	var output []*LogEntry
 	return output, n.GetInto("log", &output, startID, limit)
@@ -42,18 +48,21 @@ func (n *NZBGet) Log(startID, limit int64) ([]*LogEntry, error) {
 
 // LLoadLogog returns the NZBGet log for a specific download.
 // NOTE: only one of either startID or limit - can be specified. The other parameter must be 0.
+// https://nzbget.net/api/loadlog
 func (n *NZBGet) LoadLog(nzbID, startID, limit int64) ([]*LogEntry, error) {
 	var output []*LogEntry
 	return output, n.GetInto("loadlog", &output, nzbID, startID, limit)
 }
 
 // Config returns the loaded and active NZBGet configuration parameters.
+// https://nzbget.net/api/config
 func (n *NZBGet) Config() ([]*Parameter, error) {
 	var output []*Parameter
 	return output, n.GetInto("config", &output)
 }
 
 // LoadConfig returns the configuration from disk.
+// https://nzbget.net/api/loadconfig
 func (n *NZBGet) LoadConfig() ([]*Parameter, error) {
 	var output []*Parameter
 	return output, n.GetInto("loadconfig", &output)
