@@ -1,32 +1,34 @@
-# nzbget
+# NZBGet Go Module
 
 [![GoDoc](https://godoc.org/golift.io/nzbget/svc?status.svg)](https://pkg.go.dev/golift.io/nzbget)
 [![Go Report Card](https://goreportcard.com/badge/golift.io/nzbget)](https://goreportcard.com/report/golift.io/nzbget)
 [![MIT License](https://img.shields.io/:license-mit-blue.svg)](https://github.com/golift/nzbget/blob/main/LICENSE)
 [![discord](https://badgen.net/badge/icon/Discord?color=0011ff&label&icon=https://simpleicons.now.sh/discord/eee "GoLift Discord")](https://golift.io/discord)
 
-Go Library used to interact with NZBGet. Almost full-featured. See below.
+Go Library to interact with NZBGet. Almost full-featured. See exposed [methods](#methods) below.
 
 If you'd like new features, please open a GitHub issue or pull request.
 
 ## Methods
 
-### Program control
+Official NZBGet API reference can be [found here](https://nzbget.net/api/).
+
+### Program Control
 
 - [x] [version](https://nzbget.net/api/version)
 - [x] [shutdown](https://nzbget.net/api/shutdown)
 - [x] [reload](https://nzbget.net/api/reload)
 
-### Queue and history
+### Queue and History
 
 - [x] [listgroups](https://nzbget.net/api/listgroups)
 - [x] [listfiles](https://nzbget.net/api/listfiles)
 - [x] [history](https://nzbget.net/api/history)
-- [ ] [append](https://nzbget.net/api/append)
+- [ ] [append](https://nzbget.net/api/append) (_needed_)
 - [ ] [editqueue](https://nzbget.net/api/editqueue)
 - [x] [scan](https://nzbget.net/api/scan)
 
-### Status, logging and statistics
+### Status, Logging and Statistics
 
 - [x] [status](https://nzbget.net/api/status)
 - [x] [log](https://nzbget.net/api/log)
@@ -35,7 +37,7 @@ If you'd like new features, please open a GitHub issue or pull request.
 - [ ] [servervolumes](https://nzbget.net/api/servervolumes)
 - [ ] [resetservervolume](https://nzbget.net/api/resetservervolume)
 
-### Pause and speed limit
+### Pause and Speed Limit
 
 - [x] [rate](https://nzbget.net/api/rate)
 - [x] [pausedownload](https://nzbget.net/api/pausedownload)
