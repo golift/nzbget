@@ -96,10 +96,10 @@ type Parameter struct {
 
 // LogEntry represents the log RPC endpoint.
 type LogEntry struct {
-	ID   int64  `json:"ID"`
-	Time Time   `json:"Time"`
-	Kind string `json:"Kind"`
-	Text string `json:"Text"`
+	ID   int64   `json:"ID"`
+	Time Time    `json:"Time"`
+	Kind LogKind `json:"Kind"`
+	Text string  `json:"Text"`
 }
 
 // History represents the hisory RPC endpoint.

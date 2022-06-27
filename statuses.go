@@ -115,3 +115,15 @@ const (
 	ScriptFAILURE ScriptStatus = "FAILURE"
 	ScriptSUCCESS ScriptStatus = "SUCCESS"
 )
+
+// LogKind determines the kind of log entry.
+type LogKind string
+
+// LogKinds go here.
+const (
+	LogINFO    LogKind = "INFO"
+	LogWARNING LogKind = "WARNING"
+	LogERROR   LogKind = "ERROR"
+	LogDETAIL  LogKind = "DETAIL"
+	LogDEBUG   LogKind = "DEBUG" // only if compiled in debug mode.
+)
