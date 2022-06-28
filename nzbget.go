@@ -30,7 +30,6 @@ type Config struct {
 
 // NZBGet is what you get in return for passing in a valid Config to New().
 type NZBGet struct {
-	config *Config
 	client *client
 	url    string
 }
@@ -65,8 +64,7 @@ func New(config *Config) *NZBGet {
 	}
 
 	nzb := &NZBGet{
-		url:    strings.TrimSuffix(config.URL, "/jsonrpc") + "/jsonrpc",
-		config: config,
+		url: strings.TrimSuffix(config.URL, "/jsonrpc") + "/jsonrpc",
 		client: &client{
 			auth: auth,
 			Client: &http.Client{
