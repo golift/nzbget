@@ -89,14 +89,8 @@ func (n *NZBGet) LoadConfig() ([]*Parameter, int, error) {
 // SaveConfig writes new configuration parameters to disk.
 // https://nzbget.net/api/saveconfig
 func (n *NZBGet) SaveConfig(configs []*Parameter) (bool, int, error) {
-	input := []interface{}{}
-
-	for _, config := range configs {
-		input = append(input, config)
-	}
-
 	var output bool
-	size, err := n.GetInto("saveconfig", &output, input...)
+	size, err := n.GetInto("saveconfig", &output, configs)
 
 	return output, size, err
 }
@@ -183,6 +177,7 @@ func (n *NZBGet) ResumeScan() (bool, int, error) {
 }
 
 // ScheduleResume schedules resuming of all activities after wait duration elapses.
+// Wait duration is rounded to nearest second.
 // https://nzbget.net/api/scheduleresume
 func (n *NZBGet) ScheduleResume(wait time.Duration) (bool, int, error) {
 	var output bool
@@ -257,25 +252,20 @@ type AppendInput struct {
 
 // Append adds a nzb-file or URL to the download queue.
 // https://nzbget.net/api/append
-func (n *NZBGet) Append(appendReq *AppendInput) (int64, int, error) {
-	input := []interface{}{
-		appendReq.Filename,
-		appendReq.Content,
-		appendReq.Category,
-		appendReq.Priority,
-		appendReq.AddToTop,
-		appendReq.AddPaused,
-		appendReq.DupeKey,
-		appendReq.DupeScore,
-		appendReq.DupeMode,
-	}
-
-	for _, param := range appendReq.Parameters {
-		input = append(input, param)
-	}
-
+func (n *NZBGet) Append(input *AppendInput) (int64, int, error) {
 	var output int64
-	size, err := n.GetInto("append", &output, input...)
+	size, err := n.GetInto("append", &output,
+		input.Filename,
+		input.Content,
+		input.Category,
+		input.Priority,
+		input.AddToTop,
+		input.AddPaused,
+		input.DupeKey,
+		input.DupeScore,
+		input.DupeMode,
+		input.Parameters,
+	)
 
 	return output, size, err
 }
