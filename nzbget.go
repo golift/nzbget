@@ -32,6 +32,7 @@ type Config struct {
 type NZBGet struct {
 	config *Config
 	client *client
+	url    string
 }
 
 // Duration is used to parse durations from a config file.
@@ -50,10 +51,9 @@ func (d *Duration) UnmarshalText(data []byte) error {
 }
 
 func New(config *Config) *NZBGet {
-	config.URL = strings.TrimSuffix(config.URL, "/jsonrpc") + "/jsonrpc"
-
-	if config.Timeout.Duration == 0 {
-		config.Timeout.Duration = DefaultTimeout
+	timeout := config.Timeout.Duration
+	if timeout == 0 {
+		timeout = DefaultTimeout
 	}
 
 	// Set username and password if one's configured.
@@ -65,6 +65,7 @@ func New(config *Config) *NZBGet {
 	}
 
 	nzb := &NZBGet{
+		url:    strings.TrimSuffix(config.URL, "/jsonrpc") + "/jsonrpc",
 		config: config,
 		client: &client{
 			auth: auth,
@@ -72,7 +73,7 @@ func New(config *Config) *NZBGet {
 				Transport: &http.Transport{
 					TLSClientConfig: &tls.Config{InsecureSkipVerify: config.VerifySSL}, //nolint:gosec
 				},
-				Timeout: config.Timeout.Duration,
+				Timeout: timeout,
 			},
 		},
 	}
@@ -81,31 +82,32 @@ func New(config *Config) *NZBGet {
 }
 
 // GetInto is a helper method to make a JSON-RPC request and turn the response into structured data.
-func (n *NZBGet) GetInto(method string, output interface{}, args ...interface{}) error {
+func (n *NZBGet) GetInto(method string, output interface{}, args ...interface{}) (int, error) {
 	message, err := json.EncodeClientRequest(method, args)
 	if err != nil {
-		return fmt.Errorf("encoding request: %w", err)
+		return 0, fmt.Errorf("encoding request: %w", err)
 	}
 
-	req, err := http.NewRequest("POST", n.config.URL, bytes.NewBuffer(message))
+	req, err := http.NewRequest("POST", n.url, bytes.NewBuffer(message))
 	if err != nil {
-		return fmt.Errorf("creating request: %w", err)
+		return 0, fmt.Errorf("creating request: %w", err)
 	}
 
 	resp, err := n.client.Do(req)
 	if err != nil {
-		return fmt.Errorf("making request: %w", err)
+		return 0, fmt.Errorf("making request: %w", err)
 	}
 	defer resp.Body.Close()
 
 	var buf bytes.Buffer
-	tee := io.TeeReader(resp.Body, &buf)
+	defer buf.Reset()
 
+	tee := io.TeeReader(resp.Body, &buf)
 	if err := json.DecodeClientResponse(tee, &output); err != nil {
-		return fmt.Errorf("parsing response: %w", err)
+		return buf.Len(), fmt.Errorf("parsing response: %w", err)
 	}
 
-	return nil
+	return buf.Len(), nil
 }
 
 // Do allows overriding the http request parameters in aggregate.
