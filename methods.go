@@ -166,3 +166,76 @@ func (n *NZBGet) WriteLog(kind LogKind, text string) (bool, error) {
 	var output bool
 	return output, n.GetInto("writelog", &output, kind, text)
 }
+
+// ConfigTemplates returns NZBGet configuration file template and
+// also extracts configuration sections from all post-processing files.
+// This information is for example used by web-interface to build settings
+// page or page “Postprocess” in download details dialog.
+// https://nzbget.net/api/configtemplates
+func (n *NZBGet) ConfigTemplates(loadFromDisk bool) ([]*ConfigTemplate, error) {
+	var output []*ConfigTemplate
+	return output, n.GetInto("configtemplates", &output, loadFromDisk)
+}
+
+// ServerVolumes returns download volume statistics per news-server.
+// https://nzbget.net/api/servervolumes
+// NOTE: The first record (serverid=0) are totals for all servers.
+func (n *NZBGet) ServerVolumes() ([]*ServerVolume, error) {
+	var output []*ServerVolume
+	return output, n.GetInto("servervolumes", &output)
+}
+
+// ResetServerVolume resets download volume statistics for a specified news-server.
+// https://nzbget.net/api/resetservervolume
+func (n *NZBGet) ResetServerVolume(serverID int64, sounter string) (bool, error) {
+	var output bool
+	return output, n.GetInto("resetservervolume", &output, serverID, sounter)
+}
+
+// AppendInput is the input data for the append method.
+// See https://nzbget.net/api/append for more information about this data.
+type AppendInput struct {
+	Filename   string
+	Content    string
+	Category   string
+	Priority   int64
+	AddToTop   bool
+	AddPaused  bool
+	DupeKey    string // See: https://nzbget.net/rss#duplicate-keys
+	DupeScore  int64  // See: https://nzbget.net/rss#duplicate-scores
+	DupeMode   string // See: https://nzbget.net/rss#duplicate-modes
+	Parameters []*Parameter
+}
+
+// Append adds a nzb-file or URL to the download queue.
+// https://nzbget.net/api/append
+func (n *NZBGet) Append(appendReq *AppendInput) (int64, error) {
+	var (
+		output int64
+		input  = []interface{}{
+			appendReq.Filename,
+			appendReq.Content,
+			appendReq.Category,
+			appendReq.Priority,
+			appendReq.AddToTop,
+			appendReq.AddPaused,
+			appendReq.DupeKey,
+			appendReq.DupeScore,
+			appendReq.DupeMode,
+		}
+	)
+
+	for _, param := range appendReq.Parameters {
+		input = append(input, param)
+	}
+
+	return output, n.GetInto("append", &output, input...)
+}
+
+// EditQueue edits items in download queue or in history.
+// Read the official docs for how to issue commands, and which commands are available.
+// https://nzbget.net/api/editqueue
+func (n *NZBGet) EditQueue(command, parameter string, ids []int64) (bool, error) {
+	var output bool
+	return output, n.GetInto("editqueue", &output, command, parameter, ids)
+}

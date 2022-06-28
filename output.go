@@ -216,6 +216,48 @@ type NewsServers struct {
 	Active bool  `json:"Active"`
 }
 
+// ConfigTemplate represents the configtemplate RPC endpoint output.
+//nolint:lll
+type ConfigTemplate struct {
+	Name            string `json:"Name"`            // Post-processing script name. For example “videosort/VideoSort.py”. This field is empty in the first record, which holds the config template of the program itself.
+	DisplayName     string `json:"DisplayName"`     // Nice script name ready for displaying. For example “VideoSort”.
+	PostScript      bool   `json:"PostScript"`      // “True” for post-processing scripts.
+	ScanScript      bool   `json:"ScanScript"`      // “True” for scan scripts.
+	QueueScript     bool   `json:"QueueScript"`     // “True” for queue scripts.
+	SchedulerScript bool   `json:"SchedulerScript"` // “True” for scheduler scripts.
+	Template        string `json:"Template"`        // Content of the configuration template (multiple lines).
+}
+
+// ServerVolume represents the servervolumes RPC endpoint output.
+//nolint:lll
+type ServerVolume struct {
+	ServerID        int64      `json:"ServerID"`        // ID of news server.
+	DataTime        Time       `json:"DataTime"`        // Date/time when the data was last updated (time is in C/Unix format).
+	TotalSizeLo     int64      `json:"TotalSizeLo"`     // Total amount of downloaded data since program installation, low 32-bits of 64-bit value.
+	TotalSizeHi     int64      `json:"TotalSizeHi"`     // Total amount of downloaded data since program installation, high 32-bits of 64-bit value.
+	TotalSizeMB     int64      `json:"TotalSizeMB"`     // Total amount of downloaded data since program installation, in megabytes.
+	CustomSizeLo    int64      `json:"CustomSizeLo"`    // Amount of downloaded data since last reset of custom counter, low 32-bits of 64-bit value.
+	CustomSizeHi    int64      `json:"CustomSizeHi"`    // Amount of downloaded data since last reset of custom counter, high 32-bits of 64-bit value.
+	CustomSizeMB    int64      `json:"CustomSizeMB"`    // Amount of downloaded data since last reset of custom counter, in megabytes.
+	CustomTime      Time       `json:"CustomTime"`      // Date/time of the last reset of custom counter (time is in C/Unix format).
+	BytesPerSeconds []BytesPer `json:"BytesPerSeconds"` // Per-second amount of data downloaded in last 60 seconds. See below.
+	BytesPerMinutes []BytesPer `json:"BytesPerMinutes"` // Per-minute amount of data downloaded in last 60 minutes. See below.
+	BytesPerHours   []BytesPer `json:"BytesPerHours"`   // Per-hour amount of data downloaded in last 24 hours. See below.
+	BytesPerDays    []BytesPer `json:"BytesPerDays"`    // Per-day amount of data downloaded since program installation. See below.
+	SecSlot         int64      `json:"SecSlot"`         // The current second slot of field BytesPerSeconds the program writes into.
+	MinSlot         int64      `json:"MinSlot"`         // The current minute slot of field BytesPerMinutes the program writes into.
+	HourSlot        int64      `json:"HourSlot"`        // The current hour slot of field BytesPerHours the program writes into.
+	DaySlot         int64      `json:"DaySlot"`         // The current day slot of field BytesPerDays the program writes into.
+	FirstDay        int64      `json:"FirstDay"`        // Indicates which calendar day the very first slot of BytesPerDays corresponds to. Details see below.
+}
+
+// BytesPer is part of the ServerVolume structure.
+type BytesPer struct {
+	SizeLo int64 `json:"SizeLo"` // Amount of downloaded data, low 32-bits of 64-bit value.
+	SizeHi int64 `json:"SizeHi"` // Amount of downloaded data, high 32-bits of 64-bit value.
+	SizeMB int64 `json:"SizeMB"` // Amount of downloaded data, in megabytes.
+}
+
 // Time defines a timestamp encoded as epoch seconds in JSON.
 // NZBGet returns all times as seconds since epoch, so we use a custom type to always return a proper go Time.
 type Time struct {

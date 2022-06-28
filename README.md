@@ -5,7 +5,7 @@
 [![MIT License](https://img.shields.io/:license-mit-blue.svg)](https://github.com/golift/nzbget/blob/main/LICENSE)
 [![discord](https://badgen.net/badge/icon/Discord?color=0011ff&label&icon=https://simpleicons.now.sh/discord/eee "GoLift Discord")](https://golift.io/discord)
 
-Go Library to interact with NZBGet. Almost full-featured. See exposed [methods](#methods) below.
+Full-featured Go Library to interact with NZBGet's JSON RPC interface. See exposed [methods](#methods) below.
 
 If you'd like new features, please open a GitHub issue or pull request.
 
@@ -69,8 +69,8 @@ Official NZBGet API reference can be [found here](https://nzbget.net/api/).
 - [x] [listgroups](https://nzbget.net/api/listgroups)
 - [x] [listfiles](https://nzbget.net/api/listfiles)
 - [x] [history](https://nzbget.net/api/history)
-- [ ] [append](https://nzbget.net/api/append) (_needed_)
-- [ ] [editqueue](https://nzbget.net/api/editqueue)
+- [x] [append](https://nzbget.net/api/append)
+- [x] [editqueue](https://nzbget.net/api/editqueue)
 - [x] [scan](https://nzbget.net/api/scan)
 
 ### Status, Logging and Statistics
@@ -79,8 +79,8 @@ Official NZBGet API reference can be [found here](https://nzbget.net/api/).
 - [x] [log](https://nzbget.net/api/log)
 - [x] [writelog](https://nzbget.net/api/writelog)
 - [x] [loadlog](https://nzbget.net/api/loadlog)
-- [ ] [servervolumes](https://nzbget.net/api/servervolumes)
-- [ ] [resetservervolume](https://nzbget.net/api/resetservervolume)
+- [x] [servervolumes](https://nzbget.net/api/servervolumes)
+- [x] [resetservervolume](https://nzbget.net/api/resetservervolume)
 
 ### Pause and Speed Limit
 
@@ -98,4 +98,4 @@ Official NZBGet API reference can be [found here](https://nzbget.net/api/).
 - [x] [config](https://nzbget.net/api/config)
 - [x] [loadconfig](https://nzbget.net/api/loadconfig)
 - [x] [saveconfig](https://nzbget.net/api/saveconfig)
-- [ ] [configtemplates](https://nzbget.net/api/configtemplates)
+- [x] [configtemplates](https://nzbget.net/api/configtemplates)

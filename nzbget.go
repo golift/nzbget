@@ -31,7 +31,7 @@ type Config struct {
 // NZBGet is what you get in return for passing in a valid Config to New().
 type NZBGet struct {
 	config *Config
-	*client
+	client *client
 }
 
 // Duration is used to parse durations from a config file.
