@@ -29,12 +29,12 @@ func main() {
 		Pass: "passWord",
 	})
 
-	events, err := nzb.Log(0, 100)
+	events, _, err := nzb.Log(0, 100)
 	if err != nil {
 		panic(err)
 	}
 
-	nzbVer, err := nzb.Version()
+	nzbVer, _, err := nzb.Version()
 	if err != nil {
 		panic(err)
 	}
