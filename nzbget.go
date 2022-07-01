@@ -18,6 +18,11 @@ const (
 	DefaultTimeout = 1 * time.Minute
 )
 
+// maxBodyError limits the size of the body that gets appended to an error.
+// ie. if a bad URL is used, the body content that shows the error gets appended to the error.
+// sometimes the body cotent is huge, so we limit it to 1000 charaters.
+const maxBodyError = 1000
+
 // Config is the input data needed to return a NZBGet struct.
 // This is setup to allow you to easily pass this data in from a config file.
 type Config struct {
@@ -102,7 +107,7 @@ func (n *NZBGet) GetInto(method string, output interface{}, args ...interface{})
 
 	tee := io.TeeReader(resp.Body, &buf)
 	if err := json.DecodeClientResponse(tee, &output); err != nil {
-		return buf.Len(), fmt.Errorf("parsing response: %w", err)
+		return buf.Len(), fmt.Errorf("parsing response: %w: %s", err, limitBuf(&buf))
 	}
 
 	return buf.Len(), nil
@@ -123,4 +128,13 @@ func (c *client) Do(req *http.Request) (*http.Response, error) {
 	}
 
 	return resp, nil
+}
+
+func limitBuf(buf *bytes.Buffer) string {
+	str := buf.String()
+	if len(str) > maxBodyError {
+		return str[:maxBodyError]
+	}
+
+	return str
 }
