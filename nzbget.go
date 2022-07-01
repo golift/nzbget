@@ -107,7 +107,7 @@ func (n *NZBGet) GetInto(method string, output interface{}, args ...interface{})
 
 	tee := io.TeeReader(resp.Body, &buf)
 	if err := json.DecodeClientResponse(tee, &output); err != nil {
-		return buf.Len(), fmt.Errorf("parsing response: %w: %s", err, limitBuf(&buf))
+		return buf.Len(), fmt.Errorf("parsing response: %w: %s %s", err, resp.Status, limitBuf(&buf))
 	}
 
 	return buf.Len(), nil
