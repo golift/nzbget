@@ -2,6 +2,7 @@ package nzbget
 
 import (
 	"bytes"
+	"context"
 	"crypto/tls"
 	"encoding/base64"
 	"fmt"
@@ -85,13 +86,13 @@ func New(config *Config) *NZBGet {
 }
 
 // GetInto is a helper method to make a JSON-RPC request and turn the response into structured data.
-func (n *NZBGet) GetInto(method string, output interface{}, args ...interface{}) (int, error) {
+func (n *NZBGet) GetInto(ctx context.Context, method string, output interface{}, args ...interface{}) (int, error) {
 	message, err := json.EncodeClientRequest(method, args)
 	if err != nil {
 		return 0, fmt.Errorf("encoding request: %w", err)
 	}
 
-	req, err := http.NewRequest("POST", n.url, bytes.NewBuffer(message))
+	req, err := http.NewRequestWithContext(ctx, "POST", n.url, bytes.NewBuffer(message))
 	if err != nil {
 		return 0, fmt.Errorf("creating request: %w", err)
 	}
