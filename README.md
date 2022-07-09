@@ -29,12 +29,12 @@ func main() {
 		Pass: "passWord",
 	})
 
-	events, _, err := nzb.Log(0, 100)
+	events, err := nzb.Log(0, 100)
 	if err != nil {
 		panic(err)
 	}
 
-	nzbVer, _, err := nzb.Version()
+	nzbVer, err := nzb.Version()
 	if err != nil {
 		panic(err)
 	}
@@ -57,6 +57,8 @@ func main() {
 ## Methods
 
 Official NZBGet API reference can be [found here](https://nzbget.net/api/).
+
+All of these methods are exposed.
 
 ### Program Control
 
