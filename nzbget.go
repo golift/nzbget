@@ -52,7 +52,7 @@ func New(config *Config) *NZBGet {
 	}
 
 	return &NZBGet{
-		url: strings.TrimSuffix(config.URL, "/jsonrpc") + "/jsonrpc",
+		url: strings.TrimSuffix(strings.TrimSuffix(config.URL, "/jsonrpc"), "/") + "/jsonrpc",
 		client: &client{
 			Auth:   auth,
 			Client: httpClient,
