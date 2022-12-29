@@ -1,15 +1,19 @@
 linters:
   enable-all: true
   disable:
+    # deprecated
     - maligned
     - scopelint
     - interfacer
     - golint
-    - tagliatelle
     - exhaustivestruct
+    - nosnakecase
+    - structcheck
+    - deadcode
+    - varcheck
+    - ifshort
+    # unused
     - exhaustruct
-    - dupl
-    - nlreturn
-
+    - tagliatelle
 run:
-  timeout: 35m
+  timeout: 3m
