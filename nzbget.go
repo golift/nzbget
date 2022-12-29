@@ -67,7 +67,7 @@ func (n *NZBGet) GetInto(ctx context.Context, method string, output interface{},
 		return fmt.Errorf("encoding request: %w", err)
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "POST", n.url, bytes.NewBuffer(message))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, n.url, bytes.NewBuffer(message))
 	if err != nil {
 		return fmt.Errorf("creating request: %w", err)
 	}

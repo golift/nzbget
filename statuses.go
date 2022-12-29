@@ -4,6 +4,7 @@ package nzbget
 type DeleteStatus string
 
 // DeleteStatuses go here.
+//
 //nolint:lll
 const (
 	DeleteNONE   DeleteStatus = "NONE"   // not deleted;
@@ -19,6 +20,7 @@ const (
 type GroupStatus string
 
 // GroupStatuses go here.
+//
 //nolint:lll
 const (
 	GroupQUEUED            GroupStatus = "QUEUED"             // queued for download;
@@ -41,6 +43,7 @@ const (
 type ParStatus string
 
 // ParStatuses go here.
+//
 //nolint:lll
 const (
 	ParNONE           ParStatus = "NONE"            // par-check wasn’t performed;
@@ -63,6 +66,7 @@ const (
 type UnpackStatus string
 
 // UnpackStatuses go here.
+//
 //nolint:lll
 const (
 	UnpackNONE     UnpackStatus = "NONE"     // unpack wasn’t performed, either no archive files were found or the unpack is disabled for that download or globally;
@@ -76,6 +80,7 @@ const (
 type URLStatus string
 
 // URLStatuses go here.
+//
 //nolint:lll
 const (
 	URLNONE        URLStatus = "NONE"         // that nzb-file were not fetched from an URL;
@@ -89,6 +94,7 @@ const (
 type MoveStatus string
 
 // MoveStatuses go here.
+//
 //nolint:lll
 const (
 	MoveNONE    MoveStatus = "NONE"    // the moving wasn’t made because either the option InterDir is not in use or the par-check or unpack have failed;
