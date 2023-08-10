@@ -420,11 +420,6 @@ func (n *NZBGet) Append(input *AppendInput) (int64, error) {
 // AppendContext adds a nzb-file or URL to the download queue.
 // https://nzbget.net/api/append
 func (n *NZBGet) AppendContext(ctx context.Context, input *AppendInput) (int64, error) {
-	var parameters [][]string
-	for _, p := range input.Parameters {
-		parameters = append(parameters, []string{p.Name, p.Value})
-	}
-
 	var output int64
 	err := n.GetInto(ctx, "append", &output,
 		input.Filename,
@@ -436,10 +431,20 @@ func (n *NZBGet) AppendContext(ctx context.Context, input *AppendInput) (int64, 
 		input.DupeKey,
 		input.DupeScore,
 		input.DupeMode,
-		parameters,
+		ppparameters(input.Parameters),
 	)
 
 	return output, err
+}
+
+// ppparameters turns input Parameters into an RPC-compatible format.
+func ppparameters(parameters []*Parameter) [][2]string {
+	output := make([][2]string, len(parameters))
+	for idx, param := range parameters {
+		output[idx] = [2]string{param.Name, param.Value}
+	}
+
+	return output
 }
 
 // EditQueue edits items in download queue or in history.

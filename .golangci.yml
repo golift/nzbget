@@ -15,5 +15,7 @@ linters:
     # unused
     - exhaustruct
     - tagliatelle
+    - tagalign
+    - depguard
 run:
   timeout: 3m
