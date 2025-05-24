@@ -20,9 +20,9 @@ const (
 // Config is the input data needed to return a NZBGet struct.
 // This is setup to allow you to easily pass this data in from a config file.
 type Config struct {
-	URL    string       `json:"url" toml:"url" xml:"url" yaml:"url"`
-	User   string       `json:"user" toml:"user" xml:"user" yaml:"user"`
-	Pass   string       `json:"pass" toml:"pass" xml:"pass" yaml:"pass"`
+	URL    string       `json:"url"      toml:"url"  xml:"url"  yaml:"url"`
+	User   string       `json:"username" toml:"user" xml:"user" yaml:"user"`
+	Pass   string       `json:"password" toml:"pass" xml:"pass" yaml:"pass"`
 	Client *http.Client `json:"-" toml:"-" xml:"-" yaml:"-"` // optional.
 }
 
