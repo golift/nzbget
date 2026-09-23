@@ -1,3 +1,4 @@
+// Package nzbget is a client for the NZBGet JSON-RPC API.
 package nzbget
 
 import (
@@ -33,10 +34,12 @@ type NZBGet struct {
 }
 
 type client struct {
-	Auth string
 	*http.Client
+
+	Auth string
 }
 
+// New returns an NZBGet client for config. The URL may omit the /jsonrpc suffix.
 func New(config *Config) *NZBGet {
 	// Set username and password if one's configured.
 	auth := config.User + ":" + config.Pass
@@ -61,7 +64,7 @@ func New(config *Config) *NZBGet {
 }
 
 // GetInto is a helper method to make a JSON-RPC request and turn the response into structured data.
-func (n *NZBGet) GetInto(ctx context.Context, method string, output interface{}, args ...interface{}) error {
+func (n *NZBGet) GetInto(ctx context.Context, method string, output any, args ...any) error {
 	message, err := json.EncodeClientRequest(method, args)
 	if err != nil {
 		return fmt.Errorf("encoding request: %w", err)
@@ -83,9 +86,10 @@ func (n *NZBGet) GetInto(ctx context.Context, method string, output interface{},
 	if err != nil {
 		return fmt.Errorf("making request: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
-	if err := json.DecodeClientResponse(resp.Body, &output); err != nil {
+	err = json.DecodeClientResponse(resp.Body, &output)
+	if err != nil {
 		return fmt.Errorf("parsing response: %w: %s", err, resp.Status)
 	}
 

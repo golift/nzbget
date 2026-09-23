@@ -15,6 +15,7 @@ func (n *NZBGet) Version() (string, error) {
 // https://nzbget.net/api/version
 func (n *NZBGet) VersionContext(ctx context.Context) (string, error) {
 	var output string
+
 	err := n.GetInto(ctx, "version", &output)
 
 	return output, err
@@ -32,6 +33,7 @@ func (n *NZBGet) ListFiles(nzbID int64) (*File, error) {
 // nzbID is the NZBID of the group to be returned. Use 0 for all file groups.
 func (n *NZBGet) ListFilesContext(ctx context.Context, nzbID int64) (*File, error) {
 	var output File
+
 	err := n.GetInto(ctx, "listfiles", &output, 0, 0, nzbID)
 
 	return &output, err
@@ -47,6 +49,7 @@ func (n *NZBGet) Status() (*Status, error) {
 // https://nzbget.net/api/status
 func (n *NZBGet) StatusContext(ctx context.Context) (*Status, error) {
 	var output Status
+
 	err := n.GetInto(ctx, "status", &output)
 
 	return &output, err
@@ -62,6 +65,7 @@ func (n *NZBGet) History(hidden bool) ([]*History, error) {
 // https://nzbget.net/api/history
 func (n *NZBGet) HistoryContext(ctx context.Context, hidden bool) ([]*History, error) {
 	var output []*History
+
 	err := n.GetInto(ctx, "history", &output, hidden)
 
 	return output, err
@@ -77,6 +81,7 @@ func (n *NZBGet) ListGroups() ([]*Group, error) {
 // https://nzbget.net/api/listgroups
 func (n *NZBGet) ListGroupsContext(ctx context.Context) ([]*Group, error) {
 	var output []*Group
+
 	err := n.GetInto(ctx, "listgroups", &output, 0)
 
 	return output, err
@@ -94,6 +99,7 @@ func (n *NZBGet) Log(startID, limit int64) ([]*LogEntry, error) {
 // https://nzbget.net/api/log
 func (n *NZBGet) LogContext(ctx context.Context, startID, limit int64) ([]*LogEntry, error) {
 	var output []*LogEntry
+
 	err := n.GetInto(ctx, "log", &output, startID, limit)
 
 	return output, err
@@ -111,6 +117,7 @@ func (n *NZBGet) LoadLog(nzbID, startID, limit int64) ([]*LogEntry, error) {
 // https://nzbget.net/api/loadlog
 func (n *NZBGet) LoadLogContext(ctx context.Context, nzbID, startID, limit int64) ([]*LogEntry, error) {
 	var output []*LogEntry
+
 	err := n.GetInto(ctx, "loadlog", &output, nzbID, startID, limit)
 
 	return output, err
@@ -126,6 +133,7 @@ func (n *NZBGet) Config() ([]*Parameter, error) {
 // https://nzbget.net/api/config
 func (n *NZBGet) ConfigContext(ctx context.Context) ([]*Parameter, error) {
 	var output []*Parameter
+
 	err := n.GetInto(ctx, "config", &output)
 
 	return output, err
@@ -141,6 +149,7 @@ func (n *NZBGet) LoadConfig() ([]*Parameter, error) {
 // https://nzbget.net/api/loadconfig
 func (n *NZBGet) LoadConfigContext(ctx context.Context) ([]*Parameter, error) {
 	var output []*Parameter
+
 	err := n.GetInto(ctx, "loadconfig", &output)
 
 	return output, err
@@ -156,6 +165,7 @@ func (n *NZBGet) SaveConfig(configs []*Parameter) (bool, error) {
 // https://nzbget.net/api/saveconfig
 func (n *NZBGet) SaveConfigContext(ctx context.Context, configs []*Parameter) (bool, error) {
 	var output bool
+
 	err := n.GetInto(ctx, "saveconfig", &output, configs)
 
 	return output, err
@@ -171,6 +181,7 @@ func (n *NZBGet) Shutdown() (bool, error) {
 // https://nzbget.net/api/shutdown
 func (n *NZBGet) ShutdownContext(ctx context.Context) (bool, error) {
 	var output bool
+
 	err := n.GetInto(ctx, "shutdown", &output)
 
 	return output, err
@@ -186,6 +197,7 @@ func (n *NZBGet) Reload() (bool, error) {
 // https://nzbget.net/api/reload
 func (n *NZBGet) ReloadContext(ctx context.Context) (bool, error) {
 	var output bool
+
 	err := n.GetInto(ctx, "reload", &output)
 
 	return output, err
@@ -201,6 +213,7 @@ func (n *NZBGet) Rate(limit int64) (bool, error) {
 // https://nzbget.net/api/rate
 func (n *NZBGet) RateContext(ctx context.Context, limit int64) (bool, error) {
 	var output bool
+
 	err := n.GetInto(ctx, "rate", &output, limit)
 
 	return output, err
@@ -216,6 +229,7 @@ func (n *NZBGet) PausePost() (bool, error) {
 // https://nzbget.net/api/pausepost
 func (n *NZBGet) PausePostContext(ctx context.Context) (bool, error) {
 	var output bool
+
 	err := n.GetInto(ctx, "pausepost", &output)
 
 	return output, err
@@ -231,6 +245,7 @@ func (n *NZBGet) ResumePost() (bool, error) {
 // https://nzbget.net/api/resumepost
 func (n *NZBGet) ResumePostContext(ctx context.Context) (bool, error) {
 	var output bool
+
 	err := n.GetInto(ctx, "resumepost", &output)
 
 	return output, err
@@ -246,6 +261,7 @@ func (n *NZBGet) PauseDownload() (bool, error) {
 // https://nzbget.net/api/pausedownload
 func (n *NZBGet) PauseDownloadContext(ctx context.Context) (bool, error) {
 	var output bool
+
 	err := n.GetInto(ctx, "pausedownload", &output)
 
 	return output, err
@@ -261,6 +277,7 @@ func (n *NZBGet) ResumeDownload() (bool, error) {
 // https://nzbget.net/api/resumedownload
 func (n *NZBGet) ResumeDownloadContext(ctx context.Context) (bool, error) {
 	var output bool
+
 	err := n.GetInto(ctx, "resumedownload", &output)
 
 	return output, err
@@ -276,6 +293,7 @@ func (n *NZBGet) PauseScan() (bool, error) {
 // https://nzbget.net/api/pausescan
 func (n *NZBGet) PauseScanContext(ctx context.Context) (bool, error) {
 	var output bool
+
 	err := n.GetInto(ctx, "pausescan", &output)
 
 	return output, err
@@ -291,6 +309,7 @@ func (n *NZBGet) ResumeScan() (bool, error) {
 // https://nzbget.net/api/resumescan
 func (n *NZBGet) ResumeScanContext(ctx context.Context) (bool, error) {
 	var output bool
+
 	err := n.GetInto(ctx, "resumescan", &output)
 
 	return output, err
@@ -308,6 +327,7 @@ func (n *NZBGet) ScheduleResume(wait time.Duration) (bool, error) {
 // https://nzbget.net/api/scheduleresume
 func (n *NZBGet) ScheduleResumeContext(ctx context.Context, wait time.Duration) (bool, error) {
 	var output bool
+
 	err := n.GetInto(ctx, "scheduleresume", &output, wait.Seconds())
 
 	return output, err
@@ -323,6 +343,7 @@ func (n *NZBGet) Scan() (bool, error) {
 // https://nzbget.net/api/scheduleresume
 func (n *NZBGet) ScanContext(ctx context.Context) (bool, error) {
 	var output bool
+
 	err := n.GetInto(ctx, "scan", &output)
 
 	return output, err
@@ -338,6 +359,7 @@ func (n *NZBGet) WriteLog(kind LogKind, text string) (bool, error) {
 // https://nzbget.net/api/writelog
 func (n *NZBGet) WriteLogContext(ctx context.Context, kind LogKind, text string) (bool, error) {
 	var output bool
+
 	err := n.GetInto(ctx, "writelog", &output, kind, text)
 
 	return output, err
@@ -359,6 +381,7 @@ func (n *NZBGet) ConfigTemplates(loadFromDisk bool) ([]*ConfigTemplate, error) {
 // https://nzbget.net/api/configtemplates
 func (n *NZBGet) ConfigTemplatesContext(ctx context.Context, loadFromDisk bool) ([]*ConfigTemplate, error) {
 	var output []*ConfigTemplate
+
 	err := n.GetInto(ctx, "configtemplates", &output, loadFromDisk)
 
 	return output, err
@@ -376,6 +399,7 @@ func (n *NZBGet) ServerVolumes() ([]*ServerVolume, error) {
 // NOTE: The first record (serverid=0) are totals for all servers.
 func (n *NZBGet) ServerVolumesContext(ctx context.Context) ([]*ServerVolume, error) {
 	var output []*ServerVolume
+
 	err := n.GetInto(ctx, "servervolumes", &output)
 
 	return output, err
@@ -383,15 +407,16 @@ func (n *NZBGet) ServerVolumesContext(ctx context.Context) ([]*ServerVolume, err
 
 // ResetServerVolume resets download volume statistics for a specified news-server.
 // https://nzbget.net/api/resetservervolume
-func (n *NZBGet) ResetServerVolume(serverID int64, sounter string) (bool, error) {
-	return n.ResetServerVolumeContext(context.Background(), serverID, sounter)
+func (n *NZBGet) ResetServerVolume(serverID int64, counter string) (bool, error) {
+	return n.ResetServerVolumeContext(context.Background(), serverID, counter)
 }
 
 // ResetServerVolumeContext resets download volume statistics for a specified news-server.
 // https://nzbget.net/api/resetservervolume
-func (n *NZBGet) ResetServerVolumeContext(ctx context.Context, serverID int64, sounter string) (bool, error) {
+func (n *NZBGet) ResetServerVolumeContext(ctx context.Context, serverID int64, counter string) (bool, error) {
 	var output bool
-	err := n.GetInto(ctx, "resetservervolume", &output, serverID, sounter)
+
+	err := n.GetInto(ctx, "resetservervolume", &output, serverID, counter)
 
 	return output, err
 }
@@ -421,6 +446,7 @@ func (n *NZBGet) Append(input *AppendInput) (int64, error) {
 // https://nzbget.net/api/append
 func (n *NZBGet) AppendContext(ctx context.Context, input *AppendInput) (int64, error) {
 	var output int64
+
 	err := n.GetInto(ctx, "append", &output,
 		input.Filename,
 		input.Content,
@@ -459,6 +485,7 @@ func (n *NZBGet) EditQueue(command, parameter string, ids []int64) (bool, error)
 // https://nzbget.net/api/editqueue
 func (n *NZBGet) EditQueueContext(ctx context.Context, command, parameter string, ids []int64) (bool, error) {
 	var output bool
+
 	err := n.GetInto(ctx, "editqueue", &output, command, parameter, ids)
 
 	return output, err

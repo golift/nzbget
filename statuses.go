@@ -102,7 +102,7 @@ const (
 	MoveFAILURE MoveStatus = "FAILURE" // the moving has failed.
 )
 
-// MoveStatus determines if the download was marked by a user.
+// MarkStatus is the user mark applied to a history item.
 type MarkStatus string
 
 // MarkStatuses go here.
