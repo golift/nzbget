@@ -407,16 +407,16 @@ func (n *NZBGet) ServerVolumesContext(ctx context.Context) ([]*ServerVolume, err
 
 // ResetServerVolume resets download volume statistics for a specified news-server.
 // https://nzbget.net/api/resetservervolume
-func (n *NZBGet) ResetServerVolume(serverID int64, sounter string) (bool, error) {
-	return n.ResetServerVolumeContext(context.Background(), serverID, sounter)
+func (n *NZBGet) ResetServerVolume(serverID int64, counter string) (bool, error) {
+	return n.ResetServerVolumeContext(context.Background(), serverID, counter)
 }
 
 // ResetServerVolumeContext resets download volume statistics for a specified news-server.
 // https://nzbget.net/api/resetservervolume
-func (n *NZBGet) ResetServerVolumeContext(ctx context.Context, serverID int64, sounter string) (bool, error) {
+func (n *NZBGet) ResetServerVolumeContext(ctx context.Context, serverID int64, counter string) (bool, error) {
 	var output bool
 
-	err := n.GetInto(ctx, "resetservervolume", &output, serverID, sounter)
+	err := n.GetInto(ctx, "resetservervolume", &output, serverID, counter)
 
 	return output, err
 }
