@@ -269,12 +269,12 @@ type Time struct {
 
 // MarshalJSON is used to convert the timestamp to JSON.
 func (t Time) MarshalJSON() ([]byte, error) {
-	return []byte(strconv.FormatInt(t.Unix(), 10)), nil //nolint:gomnd,nolintlint
+	return []byte(strconv.FormatInt(t.Unix(), 10)), nil
 }
 
 // UnmarshalJSON is used to convert the timestamp from JSON.
 func (t *Time) UnmarshalJSON(s []byte) error {
-	q, err := strconv.ParseInt(string(s), 10, 64) //nolint:gomnd,nolintlint
+	q, err := strconv.ParseInt(string(s), 10, 64)
 	if err != nil {
 		return fmt.Errorf("parsing number: %w", err)
 	}

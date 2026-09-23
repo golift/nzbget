@@ -42,7 +42,9 @@ func TestNewURLAndAuth(t *testing.T) {
 	var version struct {
 		Version string
 	}
-	if err := client.GetInto(context.Background(), "version", &version); err != nil {
+
+	err := client.GetInto(context.Background(), "version", &version)
+	if err != nil {
 		t.Fatal(err)
 	}
 
@@ -63,7 +65,7 @@ func TestNewURLAndAuth(t *testing.T) {
 		t.Fatalf("body %s", gotBody)
 	}
 
-	err := client.GetInto(context.Background(), "broken", &version)
+	err = client.GetInto(context.Background(), "broken", &version)
 	if err == nil || !strings.Contains(err.Error(), "no such method") {
 		t.Fatalf("err %v", err)
 	}

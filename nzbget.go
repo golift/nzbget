@@ -88,7 +88,8 @@ func (n *NZBGet) GetInto(ctx context.Context, method string, output any, args ..
 	}
 	defer func() { _ = resp.Body.Close() }()
 
-	if err := json.DecodeClientResponse(resp.Body, &output); err != nil {
+	err = json.DecodeClientResponse(resp.Body, &output)
+	if err != nil {
 		return fmt.Errorf("parsing response: %w: %s", err, resp.Status)
 	}
 
