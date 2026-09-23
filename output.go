@@ -15,7 +15,7 @@ type File struct {
 	NZBFilename       string `json:"NZBFilename"`       // Name of nzb//file. The filename could include fullpath if client sent it by adding the file to queue.
 	NZBName           string `json:"NZBName"`           // The name of nzb//file without path and extension. Ready for user//friendly output.
 	Subject           string `json:"Subject"`           // Subject of article read from nzb//file.
-	Filename          string `json:"Filename"`          // Filename parsed from subject. It could be incorrect since the subject not always correct formated. After the first article for file is read, the correct filename is read from article body.
+	Filename          string `json:"Filename"`          // Filename parsed from subject. It could be incorrect since the subject not always correct formatted. After the first article for file is read, the correct filename is read from article body.
 	FilenameConfirmed bool   `json:"FilenameConfirmed"` // “True” if filename was already read from article’s body. “False” if the name was parsed from subject. For confirmed filenames the destination file on disk will be exactly as specified in field “filename”. For unconfirmed filenames the name could change later.
 	DestDir           string `json:"DestDir"`           // Destination directory for output file.
 	FileSizeLo        int64  `json:"FileSizeLo"`        // Filesize in bytes, Low 32//bits of 64//bit value.
@@ -103,7 +103,7 @@ type LogEntry struct {
 	Text string  `json:"Text"`
 }
 
-// History represents the hisory RPC endpoint.
+// History represents the history RPC endpoint.
 type History struct {
 	NZBID              int64             `json:"NZBID"`
 	Name               string            `json:"Name"`
@@ -269,7 +269,7 @@ type Time struct {
 
 // MarshalJSON is used to convert the timestamp to JSON.
 func (t Time) MarshalJSON() ([]byte, error) {
-	return []byte(strconv.FormatInt(t.Time.Unix(), 10)), nil //nolint:gomnd,nolintlint
+	return []byte(strconv.FormatInt(t.Unix(), 10)), nil //nolint:gomnd,nolintlint
 }
 
 // UnmarshalJSON is used to convert the timestamp from JSON.
